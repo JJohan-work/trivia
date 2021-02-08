@@ -1,8 +1,8 @@
 # (Application Name)
 
-#### (Brief Description of Application)
+#### Trivia app
 
-#### By Mikey Kriegel
+#### By Mikey Kriegel, Jonah Johansen, Mike Pingel
 
 ## Technologies Used
 
@@ -35,7 +35,7 @@
 
 [MIT](https://opensource.org/licenses/MIT)
 
-Copyright (c) 2021 **_Michael Kriegel_**
+Copyright &copy; 2021 **_Michael Kriegel, Jonah Johansen, Mike Pingel_**
 
 ## Contact Information
 
