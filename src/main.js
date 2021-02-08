@@ -19,12 +19,14 @@ function getToken(trivia) {
 
 function getQuestions(numQuestions, category, difficulty, trivia) {
   let request = new XMLHttpRequest();
-  const url = `https://opentdb.com/api.php?amount=${numQuestions}&category=${category}&difficulty=${difficulty}&type=multiple`;
+  const url = `https://opentdb.com/api.php?amount=${numQuestions}${category != "any" ? `&category=${category}` : "" }${difficulty != "any" ? `&difficulty=${difficulty}` : "" }&type=multiple`;
   console.log(url);
   request.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
       const response = JSON.parse(this.responseText);
       trivia.questions = response;
+      $(".questionbox").show();
+      console.log(trivia.questions);
     }
   }
   request.open("GET", url, true);
@@ -34,23 +36,24 @@ function getQuestions(numQuestions, category, difficulty, trivia) {
 
 
 $(document).ready(function() {
+  $(".questionbox").hide();
   let trivia = new Trivia();
   getToken(trivia);
   
   $('#testButton').on('click', function(e){
     e.preventDefault();
-    
     console.log(trivia.token);
    
   });
 
   $('form').submit(function(e){
     e.preventDefault();
-    const numQuestions = $('#number').val();
+    const numQuestions = $('#numAmt').val();
     const category = $('#category').val();
     const difficulty = $('#difficulty').val();
     getQuestions(numQuestions, category, difficulty, trivia);
-    console.log(trivia.questions);
+    // console.log(trivia.questions);
+    $(".setup").hide();
   });
   
 });

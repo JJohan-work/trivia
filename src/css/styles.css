@@ -18,6 +18,22 @@ body {
   100% {top:10%; width:85%; left:7.5%; z-index:4;}
 }
 
+.setup {
+  width:80vw;
+  height:90vh;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: beige;
+  position: relative;
+}
+
+.setup>form {
+  width: 50%;
+  margin-left:auto;
+  margin-right:auto;
+  display: flex;
+  flex-direction: column;
+}
 
 .questionbox {
   width:80vw;
