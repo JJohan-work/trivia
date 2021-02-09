@@ -12,10 +12,16 @@ function getToken(trivia) {
       trivia.token = response.token;
       // trivia.saveToken(response);
     }
-  }
+  };
   request.open("GET", url, true);
   request.send();
 }
+
+function decrement(numQuestions, category, difficulty, trivia) {
+  let newNumQuestons = (parseInt(numQuestions) - 1).toString();
+  getQuestions(newNumQuestons, category, difficulty, trivia);
+}
+
 
 function getQuestions(numQuestions, category, difficulty, trivia) {
   let request = new XMLHttpRequest();
@@ -24,13 +30,29 @@ function getQuestions(numQuestions, category, difficulty, trivia) {
   request.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
       const response = JSON.parse(this.responseText);
-      trivia.questions = response;
-      $(".questionbox").show();
-      console.log(trivia.questions);
+      if (response["response_code"] == 0) {
+        trivia.questionsReceived = numQuestions;
+        trivia.questions = response;
+        $(".questionbox").show();
+        drawQuestions(trivia);
+        if (trivia.questionsRequested != trivia.questionsReceived) {alert(`Only able to receive ${trivia.questionsReceived} questions.`);}
+        console.log(trivia.questions.results[0].question);
+      }
+      else if (response["response_code"] == 1) {
+        decrement(numQuestions, category, difficulty, trivia);
+      }
     }
-  }
+  };
   request.open("GET", url, true);
   request.send();
+}
+
+function drawQuestions(trivia) {
+  $("#question1-question").text(`${trivia.questions.results[0].question}`);
+  $("#question1-option1").text(`${trivia.questions.results[0].correct_answer}`);
+  $("#question1-option2").text(`${trivia.questions.results[0].incorrect_answers[0]}`);
+  $("#question1-option3").text(`${trivia.questions.results[0].incorrect_answers[1]}`);
+  $("#question1-option4").text(`${trivia.questions.results[0].incorrect_answers[2]}`);
 }
 
 
@@ -43,7 +65,6 @@ $(document).ready(function() {
   $('#testButton').on('click', function(e){
     e.preventDefault();
     console.log(trivia.token);
-   
   });
 
   $('form').submit(function(e){
@@ -51,9 +72,11 @@ $(document).ready(function() {
     const numQuestions = $('#numAmt').val();
     const category = $('#category').val();
     const difficulty = $('#difficulty').val();
+    trivia.questionsRequested = numQuestions;
     getQuestions(numQuestions, category, difficulty, trivia);
-    // console.log(trivia.questions);
+    console.log(trivia.questions);
     $(".setup").hide();
+    
   });
   
 });
