@@ -59,7 +59,7 @@ body {
   animation: shuffle1;
   animation-duration: 2s;
   animation-direction: reverse;
-  /* animation-iteration-count: infinite; */
+  animation-iteration-count: infinite;
 }
 
 #question2 {
@@ -70,7 +70,7 @@ body {
   animation: shuffle2;
   animation-duration: 2s;
   animation-direction: reverse;
-  /* animation-iteration-count: infinite; */
+  animation-iteration-count: infinite;
 }
 
 #question3 {
@@ -81,5 +81,5 @@ body {
   animation: shuffle3;
   animation-duration: 2s;
   animation-direction: reverse;
-  /* animation-iteration-count: infinite; */
+  animation-iteration-count: infinite;
 }

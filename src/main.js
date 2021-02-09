@@ -22,11 +22,10 @@ function decrement(numQuestions, category, difficulty, trivia) {
   getQuestions(newNumQuestons, category, difficulty, trivia);
 }
 
-
 function getQuestions(numQuestions, category, difficulty, trivia) {
   let request = new XMLHttpRequest();
   const url = `https://opentdb.com/api.php?amount=${numQuestions}${category != "any" ? `&category=${category}` : "" }${difficulty != "any" ? `&difficulty=${difficulty}` : "" }&type=multiple`;
-  console.log(url);
+
   request.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
       const response = JSON.parse(this.responseText);
@@ -48,11 +47,11 @@ function getQuestions(numQuestions, category, difficulty, trivia) {
 }
 
 function drawQuestions(trivia) {
-  $("#question1-question").text(`${trivia.questions.results[0].question}`);
-  $("#question1-option1").text(`${trivia.questions.results[0].correct_answer}`);
-  $("#question1-option2").text(`${trivia.questions.results[0].incorrect_answers[0]}`);
-  $("#question1-option3").text(`${trivia.questions.results[0].incorrect_answers[1]}`);
-  $("#question1-option4").text(`${trivia.questions.results[0].incorrect_answers[2]}`);
+  $("#question1-question").html(`${trivia.questions.results[0].question}`);
+  $("#question1-option1").html(`${trivia.questions.results[0].correct_answer}`);
+  $("#question1-option2").html(`${trivia.questions.results[0].incorrect_answers[0]}`);
+  $("#question1-option3").html(`${trivia.questions.results[0].incorrect_answers[1]}`);
+  $("#question1-option4").html(`${trivia.questions.results[0].incorrect_answers[2]}`);
 }
 
 
